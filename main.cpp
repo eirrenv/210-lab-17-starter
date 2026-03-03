@@ -12,7 +12,7 @@ void output(Node *);
 
 int randGen(); // RNG prototype
 
-void insertAtHead(Node *headNode); // insert Node at head prototype
+void insertAtHead(Node *&headNode); // insert Node at head prototype
 
 void insertAtTail(Node *headNode); // insert Node at tail prototype
 
@@ -30,7 +30,7 @@ int main() {
     // create a linked list of size SIZE with random numbers 0-99
     for (int i = 0; i < SIZE; i++) {
         // adds node at head
-        if (i = 0) { insertAtHead(head); } 
+        if (i == 0) { insertAtHead(head); } 
         else { insertAtTail(head); }
         
     }
@@ -67,7 +67,7 @@ void output(Node * hd) {
 }
 
 // insert node at head of linked list
-void insertAtHead(Node *headNode) {
+void insertAtHead(Node *&headNode) {
     Node *newNode = new Node;
     newNode->value = randGen();
     newNode->next = headNode;
@@ -78,11 +78,17 @@ void insertAtHead(Node *headNode) {
 void insertAtTail(Node *headNode) {
     Node *newNode = new Node;
     newNode->value = randGen();
+    newNode->next = nullptr;
     Node *current = headNode;
-    while (current->next) {
-        current = current->next;
+    if (current->next == nullptr) {
+        current->next = newNode;
     }
-    current->next = newNode;
+    else {
+        while (current->next) {
+            current = current->next;
+        }
+        current->next = newNode;
+    }
 }
 
 // delete node function
