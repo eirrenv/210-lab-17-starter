@@ -10,6 +10,8 @@ struct Node {
 
 void output(Node *);
 
+int randGen(); // RNG prototype
+
 void insertAtHead(Node *headNode); // insert Node at head prototype
 
 void insertAtTail(Node *headNode); // insert Node at tail prototype
@@ -27,20 +29,10 @@ int main() {
 
     // create a linked list of size SIZE with random numbers 0-99
     for (int i = 0; i < SIZE; i++) {
-        int tmp_val = rand() % 100;
-        Node *newVal = new Node;
-        
         // adds node at head
-        if (!head) { // if this is the first node, it's the new head
-            head = newVal;
-            newVal->next = nullptr;
-            newVal->value = tmp_val;
-        }
-        else { // its a second or subsequent node; place at the head
-            newVal->next = head;
-            newVal->value = tmp_val;
-            head = newVal;
-        }
+        if (i = 0) { insertAtHead(head); } 
+        else { insertAtTail(head); }
+        
     }
     output(head);
 
@@ -52,18 +44,12 @@ int main() {
 
     // deleting the linked list
     deleteList(head);
-    /*
-    Node * current = head;
-    while (current) {
-        head = current->next;
-        delete current;
-        current = head;
-    }
-    head = nullptr;
-    output(head);
-    */
 
     return 0;
+}
+
+int randGen() {
+    return rand() % 100;
 }
 
 void output(Node * hd) {
@@ -83,6 +69,7 @@ void output(Node * hd) {
 // insert node at head of linked list
 void insertAtHead(Node *headNode) {
     Node *newNode = new Node;
+    newNode->value = randGen();
     newNode->next = headNode;
     headNode = newNode;
 }
@@ -90,6 +77,7 @@ void insertAtHead(Node *headNode) {
 // insert node at tail of linked list
 void insertAtTail(Node *headNode) {
     Node *newNode = new Node;
+    newNode->value = randGen();
     Node *current = headNode;
     while (current->next) {
         current = current->next;
@@ -109,7 +97,7 @@ void deleteNode(Node *headNode) {
     // traverse that many times and delete that node
     current = headNode;
     Node *prev = headNode;
-    for (int i = 0; i < (entry-1); i++)
+    for (int i = 0; i < (entry); i++)
         if (i == 0)
             current = current->next;
         else {
