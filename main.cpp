@@ -10,6 +10,14 @@ struct Node {
 
 void output(Node *);
 
+void insertAtHead(Node *headNode); // insert Node at head prototype
+
+void insertAtTail(Node *headNode); // insert Node at tail prototype
+
+void deleteNode(Node *headNode); // delete node prototype
+
+
+
 int main() {
     Node *head = nullptr;
     int count = 0;
@@ -111,4 +119,47 @@ void output(Node * hd) {
         current = current->next;
     }
     cout << endl;
+}
+
+// insert node at head of linked list
+void insertAtHead(Node *headNode) {
+    Node *newNode = new Node;
+    newNode->next = headNode;
+    headNode = newNode;
+}
+
+void insertAtTail(Node *headNode) {
+    Node *newNode = new Node;
+    Node *current = headNode;
+    while (current->next) {
+        current = current->next;
+    }
+    current->next = newNode;
+}
+
+void deleteNode(Node *headNode) {
+    Node * current = headNode;
+    cout << "Which node to delete? " << endl;
+    output(headNode);
+    int entry;
+    cout << "Choice --> ";
+    cin >> entry;
+
+    // traverse that many times and delete that node
+    current = headNode;
+    Node *prev = headNode;
+    for (int i = 0; i < (entry-1); i++)
+        if (i == 0)
+            current = current->next;
+        else {
+            current = current->next;
+            prev = prev->next;
+        }
+    // at this point, delete current and reroute pointers
+    if (current) {  // checks for current to be valid before deleting the node
+        prev->next = current->next;
+        delete current;
+        current = nullptr;
+    }
+    output(headNode);
 }
